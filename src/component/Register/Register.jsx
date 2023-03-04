@@ -32,6 +32,7 @@ const submitHandler = async (e) => {
         logititude
       }
     }
+    // https://thenews-backend.onrender.com
     const { data } = await axios.post("https://thenews-backend.onrender.com/api/register", {
       name,
       email,

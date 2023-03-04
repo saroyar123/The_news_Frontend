@@ -29,7 +29,8 @@ export const getUserData = (token) => async (dispatch) => {
     dispatch({
       type:"getDataRequest"
     })
-
+// https://thenews-backend.onrender.com
+console.log("user data call")
     const {data}=await axios.get(`https://thenews-backend.onrender.com/api/getUser/${token}`);
     console.log(data)
     dispatch({
