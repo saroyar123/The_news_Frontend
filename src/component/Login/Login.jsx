@@ -11,7 +11,7 @@ const Login = () => {
 
   const submitHandler=async(e)=>{
     e.preventDefault();
-    const {data}=await axios.post("/api/login",{email,password});
+    const {data}=await axios.post("https://thenews-backend.onrender.com/api/login",{email,password});
     localStorage.setItem("token",data.token);
     dispatch(getUserData(data.token));
   }
