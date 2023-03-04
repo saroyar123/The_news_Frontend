@@ -30,7 +30,7 @@ export const getUserData = (token) => async (dispatch) => {
       type:"getDataRequest"
     })
 
-    const {data}=await axios.get(`/api/getUser/${token}`);
+    const {data}=await axios.get(`https://thenews-backend.onrender.com/api/getUser/${token}`);
     console.log(data)
     dispatch({
       type:"getDataSuccess",
