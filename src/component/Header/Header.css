@@ -1,0 +1,17 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.Body{
+    height: 40px;
+    background-color: rgb(184, 224, 224);
+    border: 1px red solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.Hlink{
+    text-decoration: none;
+    padding: 5px;
+}

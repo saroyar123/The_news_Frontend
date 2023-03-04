@@ -1,9 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit'
-import { loadUser } from './Reducer/user';
+import { GetData, loadUser } from './Reducer/user';
 
 const store=configureStore({
     reducer:{
-       loadUser:loadUser
+       loadUser:loadUser,
+       UserData:GetData
     }
 });
 

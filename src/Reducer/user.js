@@ -19,4 +19,28 @@ export const loadUser=createReducer({},{
         state.error=action.playload
     },
 
+});
+
+
+export const GetData=createReducer({
+    loading:false,
+    userData:null
+
+},{
+
+    getDataRequest:(state)=>{
+        state.loading=true
+        state.userData=null
+    },
+
+    getDataSuccess:(state,action)=>{
+        state.loading=false
+        state.userData=action.playload
+    },
+
+    getDataFailure:(state,action)=>{
+        state.loading=false
+        state.userData=action.playload
+    },
+
 })
