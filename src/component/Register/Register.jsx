@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import { Button } from '@mui/material'
 import { getUserData } from '../../Action/userAction';
@@ -38,7 +38,7 @@ const submitHandler = async (e) => {
       password,
       location
     });
-    console.log(data.token);
+    console.log(data);
     localStorage.setItem("token",data.token);
     dispatch(getUserData(data.token));
 
@@ -61,3 +61,5 @@ const submitHandler = async (e) => {
 }
 
 export default Register;
+
+// https://thenews-backend.onrender.com
