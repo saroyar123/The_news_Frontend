@@ -1,22 +1,23 @@
 import {createReducer} from "@reduxjs/toolkit"
 
-export const loadUser=createReducer({},{
+export const UserAuth=createReducer({
+    loading:false,
+    Auth:false
+},{
 
-    loadUserRequest:(state)=>{
+    UserAuthRequest:(state)=>{
         state.loading=true
-        state.isAuthentication=false
+        state.Auth=false
     },
 
-    loadUserSuccess:(state,action)=>{
+    UserAuthSuccess:(state,action)=>{
         state.loading=false
-        state.isAuthentication=true
-        state.user=action.playload
+        state.Auth=true
     },
 
-    loadUserFailure:(state,action)=>{
+    UserAuthFailure:(state,action)=>{
         state.loading=false
         state.isAuthentication=false
-        state.error=action.playload
     },
 
 });
@@ -39,6 +40,32 @@ export const GetData=createReducer({
     },
 
     getDataFailure:(state,action)=>{
+        state.loading=false
+        state.userData=action.playload
+    },
+
+})
+
+
+// for all post actions
+
+export const PostActions=createReducer({
+    loading:false,
+    userData:null
+
+},{
+
+    createPostRequest:(state)=>{
+        state.loading=true
+        state.userData=null
+    },
+
+    createPostSuccess:(state,action)=>{
+        state.loading=false
+        state.userData=action.playload
+    },
+
+    createPostFailure:(state,action)=>{
         state.loading=false
         state.userData=action.playload
     },

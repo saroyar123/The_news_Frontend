@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const userRegister = (name, email, password) => async (dispatch) => {
+export const userRegister = (name, email, password,location) => async (dispatch) => {
   try {
     dispatch({
       type: "registerRequest",
@@ -10,6 +10,7 @@ export const userRegister = (name, email, password) => async (dispatch) => {
       name,
       email,
       password,
+      location
     });
 
     dispatch({
@@ -31,7 +32,7 @@ export const getUserData = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 console.log("user data call")
-    const {data}=await axios.get(`https://thenews-backend.onrender.com/api/getUser/${token}`);
+    const {data}=await axios.get(`/api/getUser/${token}`);
     console.log(data)
     dispatch({
       type:"getDataSuccess",
@@ -39,8 +40,55 @@ console.log("user data call")
     });
   } catch (error) {
     dispatch({
-      type: "loadUserFailure",
+      type: "getDataFailure",
       playload: error.response.data.message,
     });
   }
 };
+
+
+export const UserAuth = (token) => async (dispatch) => {
+  try {
+    dispatch({
+      type:"UserAuthRequest"
+    })
+// https://thenews-backend.onrender.com
+console.log("user data call")
+    const {data}=await axios.get(`/api/getUser/${token}`);
+    console.log(data)
+    dispatch({
+      type:"UserAuthSuccess",
+    });
+  } catch (error) {
+    dispatch({
+      type: "UserAuthFailure",
+      playload: error.response.data.message,
+    });
+  }
+};
+
+
+
+export const createPost = (token,caption,image,location) => async (dispatch) => {
+  try {
+    dispatch({
+      type:"CreatePostRequest"
+    })
+// https://thenews-backend.onrender.com
+console.log("user data call")
+    const {data}=await axios.post(`/api/post/${token}`,{caption,image,location});
+    console.log(data)
+    dispatch({
+      type:"CreatePostSuccess",
+      playload:data
+    });
+  } catch (error) {
+    dispatch({
+      type: "CreatePostFailure",
+      playload: error.response.data.message,
+    });
+  }
+};
+
+
+
