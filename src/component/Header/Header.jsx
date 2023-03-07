@@ -21,6 +21,7 @@ function Header() {
       <Link className='Hlink' to={'register'}>Register</Link>
       <Link className='Hlink' to={'account'}>Account</Link>
       <Link className='Hlink' to={'createPost'}>CreatePost</Link>
+      <Link className='Hlink' to={'feed'}>Feed</Link>
     </div>
     </>
   )

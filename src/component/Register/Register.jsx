@@ -47,16 +47,17 @@ function Register() {
         logititude
       }
     };
+    console.log("register")
  // https://thenews-backend.onrender.com
-    const { data } = await axios.post("https://thenews-backend.onrender.com/api/register", {
+    const { data } = await axios.post("/api/register", {
       name,
       email,
       password,
       location,
-    
+      image
     });
     console.log(data);
-    localStorage.setItem("token", data.token);
+    await localStorage.setItem("token", data.token);
     dispatch(getUserData(data.token));
 
 

@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit'
-import { GetData, PostActions, UserAuth } from './Reducer/user';
+import { GetData,UserAuth } from './Reducer/user';
+import {AllPosts, PostActions} from './Reducer/post'
 
 const store=configureStore({
     reducer:{
        UserAuth:UserAuth,
        UserData:GetData,
-       PostActions:PostActions
+       PostActions:PostActions,
+       AllPostsOfApp:AllPosts
     }
 });
 

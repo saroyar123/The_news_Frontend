@@ -1,7 +1,8 @@
 import { Avatar, Button } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { createPost, getUserData } from '../../Action/userAction';
+import {getUserData } from '../../Action/userAction';
+import {createPost, getAllPosts} from '../../Action/PostsAction'
 
 function CreatePost() {
   const [caption,setCaption]=useState("");
@@ -45,6 +46,7 @@ function CreatePost() {
       console.log(token)
       await dispatch(createPost(token,caption,image,location));
       dispatch(getUserData(token));
+      dispatch(getAllPosts());
 }
   return (
     <>

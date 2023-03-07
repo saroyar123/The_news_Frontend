@@ -9,11 +9,14 @@ import CreatePost from "./component/createPost/CreatePost";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getUserData, UserAuth } from "./Action/userAction";
+import { getAllPosts } from "./Action/PostsAction";
+import Feed from "./component/Feed/Feed";
 
 function App() {
   const dispatch=useDispatch();
   useEffect(()=>{
     const token=localStorage.getItem("token");
+    dispatch(getAllPosts());
     dispatch(UserAuth(token));
     dispatch(getUserData(token));
 
@@ -27,6 +30,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/account" element={<Account/>}/>
         <Route path="/createPost" element={<CreatePost/>}/>
+        <Route path='/feed' element={<Feed/>}/>
       </Routes>
     </BrowserRouter>
   );

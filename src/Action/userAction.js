@@ -68,27 +68,3 @@ console.log("user data call")
 };
 
 
-
-export const createPost = (token,caption,image,location) => async (dispatch) => {
-  try {
-    dispatch({
-      type:"CreatePostRequest"
-    })
-// https://thenews-backend.onrender.com
-console.log("user data call")
-    const {data}=await axios.post(`/api/post/${token}`,{caption,image,location});
-    console.log(data)
-    dispatch({
-      type:"CreatePostSuccess",
-      playload:data
-    });
-  } catch (error) {
-    dispatch({
-      type: "CreatePostFailure",
-      playload: error.response.data.message,
-    });
-  }
-};
-
-
-

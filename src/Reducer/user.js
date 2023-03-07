@@ -48,26 +48,3 @@ export const GetData=createReducer({
 
 
 // for all post actions
-
-export const PostActions=createReducer({
-    loading:false,
-    userData:null
-
-},{
-
-    createPostRequest:(state)=>{
-        state.loading=true
-        state.userData=null
-    },
-
-    createPostSuccess:(state,action)=>{
-        state.loading=false
-        state.userData=action.playload
-    },
-
-    createPostFailure:(state,action)=>{
-        state.loading=false
-        state.userData=action.playload
-    },
-
-})
