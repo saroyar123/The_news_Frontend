@@ -29,7 +29,11 @@ export const PostActions=createReducer({
 
 export const AllPosts=createReducer({
     loading:false,
-    allPosts:null
+    allPosts:{
+        success:false,
+        message:"",
+        Posts:[]
+    }
 },{
 
     allPostsRequest:(state)=>{
@@ -46,4 +50,67 @@ export const AllPosts=createReducer({
         state.loading=false
         state.allPosts=action.playload
     },
+})
+
+// reducer for like,unlike,comment
+
+
+export const comLkUliked=createReducer({
+    loading:true,
+    message:"",
+    }
+,{
+ 
+//    like the post reducers
+
+    likePostRequest:(state)=>{
+        state.loading=true
+        state.message="wait for like api call"
+    },
+
+    likePostSuccess:(state,action)=>{
+        state.loading=false
+        state.message=action.playload
+    },
+
+    likePostFailure:(state,action)=>{
+        state.loading=false
+        state.message=action.playload
+    },
+
+// unlike the post reducers
+    unLikePostRequest:(state)=>{
+        state.loading=true
+        state.message="wait for unlike api call"
+    },
+
+    unLikePostSuccess:(state,action)=>{
+        state.loading=false
+        state.message=action.playload
+    },
+
+    unLikePostFailure:(state,action)=>{
+        state.loading=false
+        state.message=action.playload
+    },
+
+
+    // comment on the post reducers call
+
+    commentRequest:(state)=>{
+        state.loading=true
+        state.message="wait for comment api call"
+    },
+
+    commentSuccess:(state,action)=>{
+        state.loading=false
+        state.message=action.playload
+    },
+
+    commentFailure:(state,action)=>{
+        state.loading=false
+        state.message=action.playload
+    },
+
+
 })

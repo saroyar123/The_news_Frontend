@@ -8,9 +8,9 @@ const Feed = () => {
   const { loading } = useSelector((state) => state.AllPostsOfApp);
   const { allPosts } = useSelector((state) => state.AllPostsOfApp);
   useEffect(() => {
-    if (!loading) setPosts(allPosts.Posts);
-  }, [loading, setPosts, allPosts.Posts]);
-  console.log(loading, posts);
+    if (!loading) setPosts(allPosts);
+  }, [loading, setPosts, allPosts]);
+  console.log(loading,allPosts);
 
   return (
     <div>
@@ -18,11 +18,11 @@ const Feed = () => {
         <Loading />
        :
       (
-        posts.map((post) => (
-       <>
-          <Post key={post._id} image={post.image} caption={post.caption} />
-          </>
-        ))
+        !loading&&posts.Posts&&posts.Posts.length>0?posts.Posts.map((post) => (
+       
+          <Post key={post._id} image={post.image} caption={post.caption} id={post._id} />
+    
+        )):<h1>create some posts</h1>
       )}
     </div>
   );

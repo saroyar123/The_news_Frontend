@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./component/Header/Header";
 import Register from "./component/Register/Register";
-import Home from "./component/Home/Home";
 import Login from "./component/Login/Login";
 import Account from "./component/Account/Account";
 import CreatePost from "./component/createPost/CreatePost";
@@ -11,6 +10,7 @@ import { useEffect } from "react";
 import { getUserData, UserAuth } from "./Action/userAction";
 import { getAllPosts } from "./Action/PostsAction";
 import Feed from "./component/Feed/Feed";
+
 
 function App() {
   const dispatch=useDispatch();
@@ -23,14 +23,14 @@ function App() {
   })
   return (
     <BrowserRouter>
-    <Header/>
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Header/>}>
+        <Route index element={<Feed/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/account" element={<Account/>}/>
         <Route path="/createPost" element={<CreatePost/>}/>
-        <Route path='/feed' element={<Feed/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
