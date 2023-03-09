@@ -27,18 +27,18 @@ const [likePost,setlikePost]=useState(false);
 const {loading,userData}=useSelector((state)=>state.UserData);
 
 
-if(!loading)
-{
-  console.log(userData[0]._id);
-  liked.forEach(element => {
-    if(element.toString()===userData[0]._id.toString())
-    {
-      setlikePost(true);
-    }
-   });
-}
+// if(!loading)
+// {
+//   console.log(userData[0]._id);
+//   liked.forEach(element => {
+//     if(element.toString()===userData[0]._id.toString())
+//     {
+//       setlikePost(true);
+//     }
+//    });
+// }
 
- console.log(likePost)
+//  console.log(likePost)
   const likeHandler=()=>{
      
   }
