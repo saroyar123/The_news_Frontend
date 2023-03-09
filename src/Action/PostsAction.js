@@ -8,7 +8,7 @@ export const createPost = (token,caption,image,location) => async (dispatch) => 
       })
   // https://thenews-backend.onrender.com
   console.log("user data call")
-      const {data}=await axios.post(`https://thenews-backend.onrender.com/api/post/${token}`,{caption,image,location});
+      const {data}=await axios.post(`/api/post/${token}`,{caption,image,location});
       console.log(data)
       dispatch({
         type:"CreatePostSuccess",
@@ -31,7 +31,7 @@ export const getAllPosts = () => async (dispatch) => {
       })
   // https://thenews-backend.onrender.com
   console.log("post data call")
-      const {data}=await axios.get(`https://thenews-backend.onrender.com/api/getAllPosts`);
+      const {data}=await axios.get(`/api/getAllPosts`);
     //   console.log(data)
 
 
@@ -49,24 +49,45 @@ export const getAllPosts = () => async (dispatch) => {
 
   // action on the post for like 
 
-  // export const likeAction=()=>(dispatch)=>{
-  //   try {
-  //     dispatch({
-  //       type:"likePostRequest"
-  //     })
+  export const likeAction=(token,id,lu)=>async(dispatch)=>{
+    try {
+      dispatch({
+        type:"likePostRequest"
+      })
+
+      const {data}=await axios.get(`/api/like/${token}/${id}/${lu}`)
+      dispatch({
+        type:"likePostSuccess",
+        playload:data
+      })
+    } catch (error) {
+      dispatch({
+        type: "likePostFailure",
+        playload: error.response.data.message,
+      });
+    }
+  }
 
 
-  //     dispatch({
-  //       type:"likePostSuccess",
-  //       playload:data
-  //     })
-  //   } catch (error) {
-  //     dispatch({
-  //       type: "likePostFailure",
-  //       playload: error.response.data.message,
-  //     });
-  //   }
-  // }
+  // action for unliked post
+  export const unLikeAction=(token,id,lu)=>async(dispatch)=>{
+    try {
+      dispatch({
+        type:"unLikePostRequest"
+      })
+
+      const {data}=await axios.get(`/api/like/${token}/${id}/${lu}`)
+      dispatch({
+        type:"unLikePostSuccess",
+        playload:data
+      })
+    } catch (error) {
+      dispatch({
+        type: "unLikePostFailure",
+        playload: error.response.data.message,
+      });
+    }
+  }
 
 
   // comment on the post
@@ -78,7 +99,7 @@ export const getAllPosts = () => async (dispatch) => {
       })
       console.log(token,comment,id)
       
-      const {data}=await axios.post(`https://thenews-backend.onrender.com/api/comment/${token}/${id}`,{comment});
+      const {data}=await axios.post(`/api/comment/${token}/${id}`,{comment});
       console.log(data)
      
       dispatch({
