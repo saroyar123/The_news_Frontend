@@ -8,7 +8,7 @@ export const createPost = (token,caption,image,location) => async (dispatch) => 
       })
   // https://thenews-backend.onrender.com
   console.log("user data call")
-      const {data}=await axios.post(`/api/post/${token}`,{caption,image,location});
+      const {data}=await axios.post(`https://thenews-backend.onrender.com/api/post/${token}`,{caption,image,location});
       console.log(data)
       dispatch({
         type:"CreatePostSuccess",
@@ -31,7 +31,7 @@ export const getAllPosts = () => async (dispatch) => {
       })
   // https://thenews-backend.onrender.com
   console.log("post data call")
-      const {data}=await axios.get(`/api/getAllPosts`);
+      const {data}=await axios.get(`https://thenews-backend.onrender.com/api/getAllPosts`);
     //   console.log(data)
 
 
@@ -78,7 +78,7 @@ export const getAllPosts = () => async (dispatch) => {
       })
       console.log(token,comment,id)
       
-      const {data}=await axios.post(`/api/comment/${token}/${id}`,{comment});
+      const {data}=await axios.post(`https://thenews-backend.onrender.com/api/comment/${token}/${id}`,{comment});
       console.log(data)
      
       dispatch({

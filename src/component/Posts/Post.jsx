@@ -2,11 +2,14 @@ import { Avatar, Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { commentAction, getAllPosts } from '../../Action/PostsAction';
 
 
-function Post({image,caption,id}) {
+function Post({image,caption,id,liked}) {
+
+  
+  // start working on comment
   const [comment,setComment]=useState("");
   const dispatch=useDispatch();
   const token=localStorage.getItem("token");
@@ -17,9 +20,27 @@ function Post({image,caption,id}) {
     await dispatch(commentAction(comment,token,id));
     dispatch(getAllPosts());
   }
+// ending of comment 
 
+// start working on the like
+const [likePost,setlikePost]=useState(false);
+const {loading,userData}=useSelector((state)=>state.UserData);
+
+
+if(!loading)
+{
+  console.log(userData[0]._id);
+  liked.forEach(element => {
+    if(element.toString()===userData[0]._id.toString())
+    {
+      setlikePost(true);
+    }
+   });
+}
+
+ console.log(likePost)
   const likeHandler=()=>{
-
+     
   }
 
   const unLikeHandler=()=>{

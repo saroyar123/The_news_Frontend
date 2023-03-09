@@ -25,7 +25,7 @@ export const UserAuth=createReducer({
 
 export const GetData=createReducer({
     loading:false,
-    userData:null
+    userData:[]
 
 },{
 

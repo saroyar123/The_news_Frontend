@@ -20,7 +20,7 @@ const Feed = () => {
       (
         !loading&&posts.Posts&&posts.Posts.length>0?posts.Posts.map((post) => (
        
-          <Post key={post._id} image={post.image} caption={post.caption} id={post._id} />
+          <Post key={post._id} image={post.image} caption={post.caption} id={post._id} liked={post.likes}/>
     
         )):<h1>create some posts</h1>
       )}
