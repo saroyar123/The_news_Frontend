@@ -25,7 +25,6 @@ function CreatePost() {
         setImage(Reader.result);
       }
     };
-    console.log(image);
   };
 
   const submitHandler = async (e) => {

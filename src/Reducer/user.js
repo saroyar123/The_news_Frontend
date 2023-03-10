@@ -12,7 +12,7 @@ export const UserAuth=createReducer({
 
     UserAuthSuccess:(state,action)=>{
         state.loading=false
-        state.Auth=true
+        state.Auth=action.playload
     },
 
     UserAuthFailure:(state,action)=>{
@@ -48,3 +48,25 @@ export const GetData=createReducer({
 
 
 // for all post actions
+
+export const allActionForUser=createReducer({
+    loading:false,
+    data:null
+},{
+
+    logOutRequest:(state)=>{
+        state.loading=true
+        state.data=null
+    },
+
+    logOutSuccess:(state,action)=>{
+        state.loading=false
+        state.data=action.playload
+    },
+
+    logOutFailure:(state,action)=>{
+        state.loading=false
+        state.data=action.playload
+    },
+
+})

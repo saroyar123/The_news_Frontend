@@ -13,11 +13,13 @@ import {
 } from "../../Action/PostsAction";
 
 function Post({ image, caption, id, liked,unliked }) {
-  // start working on comment
-  const [comment, setComment] = useState("");
+  
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-
+  
+ 
+   // start comment handler
+  const [comment, setComment] = useState("");
   const commentSubmitHandler = async (e) => {
     e.preventDefault();
     console.log(token, comment, id);
@@ -40,16 +42,19 @@ function Post({ image, caption, id, liked,unliked }) {
 
   useEffect(()=>{
     setlikePost(false);
-    if (!loading && userData.length > 0) {
-      liked.forEach((element) => {
-        if (element.toString() === userData[0]._id.toString()) {
-          console.log("like posts")
-          setlikePost(true);
-        }
-      });
+    if(token!==null)
+    {
+      if (!loading && userData.length > 0) {
+        liked.forEach((element) => {
+          if (element.toString() === userData[0]._id.toString()) {
+            console.log("like posts")
+            setlikePost(true);
+          }
+        });
+      }
     }
     console.log(likePost)
-   },[loading,likePost,setlikePost,liked,userData])
+   },[loading,likePost,setlikePost,liked,userData,token])
 
   // like handler end here
 
@@ -57,16 +62,19 @@ function Post({ image, caption, id, liked,unliked }) {
  const [unlikedPost,setUnlikedPost]=useState(false);
  useEffect(()=>{
   setUnlikedPost(false);
-  if (!loading && userData.length > 0) {
-    unliked.forEach((element) => {
-      if (element.toString() === userData[0]._id.toString()) {
-        console.log("unlike posts")
-        setUnlikedPost(true);
-      }
-    });
+  if(token!==null)
+  {
+    if (!loading && userData.length > 0) {
+      unliked.forEach((element) => {
+        if (element.toString() === userData[0]._id.toString()) {
+          console.log("unlike posts")
+          setUnlikedPost(true);
+        }
+      });
+    }
   }
   console.log(unliked)
- },[loading,unliked,unlikedPost,setUnlikedPost,userData])
+ },[loading,unliked,unlikedPost,setUnlikedPost,userData,token])
   const unLikeHandler =async(e) => {
     e.preventDefault();
     let lu=2;
@@ -88,11 +96,11 @@ function Post({ image, caption, id, liked,unliked }) {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         ></input>
-        <Button type="submit">comment</Button>
+        <Button disabled={token===null} type="submit">comment</Button>
       </form>
 
       {/* like */}
-      <Button onClick={likeHandler}>
+      <Button disabled={token===null} onClick={likeHandler}>
         
         {likePost ? (
           <ThumbUpIcon fontSize="small" style={{ color: "black" }}/>
@@ -102,7 +110,7 @@ function Post({ image, caption, id, liked,unliked }) {
       </Button>
 
       {/* unlike */}
-      <Button onClick={unLikeHandler}>
+      <Button disabled={token===null} onClick={unLikeHandler}>
         {
           unlikedPost?(<ThumbDownAltIcon fontSize="small" style={{ color: "black" }}/> ):(<ThumbDownOffAltIcon fontSize="small" style={{ color: "black" }} />)
           

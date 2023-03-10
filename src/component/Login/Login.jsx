@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getUserData } from '../../Action/userAction';
 
 
@@ -15,6 +16,7 @@ const Login = () => {
     const {data}=await axios.post("/api/login",{email,password});
     localStorage.setItem("token",data.token);
     dispatch(getUserData(data.token));
+    window.location.replace("http://localhost:3000/")
   }
 
   return (
@@ -25,6 +27,7 @@ const Login = () => {
         <input type='password' placeholder='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
         <button type='submit'>login</button>
       </form>
+      <Link className='Hlink' to={'register'}>Register</Link>
     </div>
     </>
   )

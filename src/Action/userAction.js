@@ -58,6 +58,7 @@ console.log("user data call")
     console.log(data)
     dispatch({
       type:"UserAuthSuccess",
+      playload:data
     });
   } catch (error) {
     dispatch({
@@ -66,5 +67,30 @@ console.log("user data call")
     });
   }
 };
+
+
+// action for loagout user
+
+export const logOutUser = (token) => async (dispatch) => {
+  try {
+    dispatch({
+      type:"logOutRequest"
+    })
+// https://thenews-backend.onrender.com
+console.log("logout user data call")
+    const {data}=await axios.get(`/api/logout/${token}`);
+    console.log(data)
+    dispatch({
+      type:"logOutSuccess",
+      playload:data
+    });
+  } catch (error) {
+    dispatch({
+      type: "logOutFailure",
+      playload: error.response.data.message,
+    });
+  }
+};
+
 
 
