@@ -17,7 +17,7 @@ export const createPost = (token,caption,image,location) => async (dispatch) => 
     } catch (error) {
       dispatch({
         type: "CreatePostFailure",
-        playload: error.response.data.message,
+        playload: error.response.data,
       });
     }
   };
@@ -30,9 +30,7 @@ export const getAllPosts = () => async (dispatch) => {
         type:"allPostsRequest"
       })
   // https://thenews-backend.onrender.com
-  console.log("post data call")
-      const {data}=await axios.get(`/api/getAllPosts`);
-    //   console.log(data)
+      const {data}=await axios.get(`/api/v1/getAllPosts`);
 
 
       dispatch({
@@ -40,9 +38,10 @@ export const getAllPosts = () => async (dispatch) => {
         playload:data
       });
     } catch (error) {
+
       dispatch({
         type: "allPostsFailure",
-        playload: error.response.data.message,
+        playload: error.response.data,
       });
     }
   };
@@ -63,7 +62,7 @@ export const getAllPosts = () => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: "likePostFailure",
-        playload: error.response.data.message,
+        playload: error.response.data,
       });
     }
   }
@@ -84,7 +83,7 @@ export const getAllPosts = () => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: "unLikePostFailure",
-        playload: error.response.data.message,
+        playload: error.response.data,
       });
     }
   }
@@ -109,7 +108,7 @@ export const getAllPosts = () => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: "commentFailure",
-        playload: error.response.data.message,
+        playload: error.response.data,
       });
     }
   }

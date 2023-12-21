@@ -1,0 +1,9 @@
+.createSomePost{
+    display: flex;
+    justify-content: center;
+
+}
+
+.createSomePost h1{
+    font-size: 300;
+}

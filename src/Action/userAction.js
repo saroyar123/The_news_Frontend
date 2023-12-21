@@ -6,7 +6,7 @@ export const userRegister = (name, email, password,location) => async (dispatch)
       type: "registerRequest",
     });
 
-    const { data } = await axios.post("/api/register", {
+    const { data } = await axios.post("/api/v1/register", {
       name,
       email,
       password,
@@ -20,7 +20,7 @@ export const userRegister = (name, email, password,location) => async (dispatch)
   } catch (error) {
     dispatch({
       type: "loadUserFailure",
-      playload: error.response.data.message,
+      playload: error.response.data,
     });
   }
 };
@@ -32,7 +32,7 @@ export const getUserData = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 console.log("user data call")
-    const {data}=await axios.get(`/api/getUser/${token}`);
+    const {data}=await axios.get(`/api/v1/getUser/${token}`);
     console.log(data)
     dispatch({
       type:"getDataSuccess",
@@ -41,7 +41,7 @@ console.log("user data call")
   } catch (error) {
     dispatch({
       type: "getDataFailure",
-      playload: error.response.data.message,
+      playload: error.response.data,
     });
   }
 };
@@ -54,7 +54,7 @@ export const UserAuth = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 console.log("user data call")
-    const {data}=await axios.get(`/api/getUser/${token}`);
+    const {data}=await axios.get(`/api/v1/getUser/${token}`);
     console.log(data)
     dispatch({
       type:"UserAuthSuccess",
@@ -63,7 +63,7 @@ console.log("user data call")
   } catch (error) {
     dispatch({
       type: "UserAuthFailure",
-      playload: error.response.data.message,
+      playload: error.response.data,
     });
   }
 };
@@ -78,7 +78,7 @@ export const logOutUser = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 console.log("logout user data call")
-    const {data}=await axios.get(`/api/logout/${token}`);
+    const {data}=await axios.get(`/api/v1/logout/${token}`);
     console.log(data)
     dispatch({
       type:"logOutSuccess",
@@ -87,7 +87,7 @@ console.log("logout user data call")
   } catch (error) {
     dispatch({
       type: "logOutFailure",
-      playload: error.response.data.message,
+      playload: error.response.data,
     });
   }
 };

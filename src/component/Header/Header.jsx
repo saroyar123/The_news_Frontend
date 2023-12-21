@@ -1,47 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import {Link, Outlet} from 'react-router-dom'
-import Loading from '../Loading/Loading';
+import { Link, Outlet } from 'react-router-dom'
 import './Header.css'
 
 function Header() {
-  const [auth,setAuth]=useState(false);
-  const {loading,Auth}=useSelector((state)=>state.UserAuth);
+  const [auth, setAuth] = useState(false);
+  const { Auth } = useSelector((state) => state.UserAuth);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(!auth)
-    {
+    if (!auth) {
       setAuth(Auth.success);
+      console.log("auth", Auth)
     }
 
-  },[auth,Auth])
-
-  console.log("auth",auth)
+  }, [auth, Auth])
   return (
     <>
-    {
-      loading?<Loading/>:(
-      <>
-          <div className="Body">
-      <Link className='Hlink' to={'/'}>Feed</Link>
       {
-        auth===false?(<Link className='Hlink' to={'login'}>Login</Link>):(
+        // loading ? <Loading /> : (
           <>
-          <Link className='Hlink' to={'account'}>Account</Link>
-          <Link className='Hlink' to={'createPost'}>CreatePost</Link>
+            <div className="Navber_Body">
+              <Link className='Hlink' to={'/'}>Feed</Link>
+              {
+                auth === false ? 
+                (<Link className='Hlink' to={'login'}>Login</Link>) : (
+                  <>
+                    <Link className='Hlink' to={'account'}>Account</Link>
+                    <Link className='Hlink' to={'createPost'}>CreatePost</Link>
+                  </>
+
+                )
+              }
+
+            </div>
+            <div>
+              <Outlet />
+            </div>
           </>
-          
-        )
+        // )
       }
-      
-    </div>
-    <div>
-      <Outlet/>
-    </div>
-      </>
-      )
-    }
     </>
   )
 }

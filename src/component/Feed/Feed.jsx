@@ -1,38 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import Loading from "../Loading/Loading";
 import Post from "../Posts/Post";
+import "./Feed.css"
+import Loading from "../Loading/Loading";
 
 const Feed = () => {
-  const [posts, setPosts] = useState([]);
-  const { loading } = useSelector((state) => state.AllPostsOfApp);
-  const { allPosts } = useSelector((state) => state.AllPostsOfApp);
-  useEffect(() => {
-    if (!loading) setPosts(allPosts);
-  }, [loading, setPosts, allPosts]);
-  console.log(loading,allPosts);
-
+  const {loading,allPosts}=useSelector((state)=>state.AllPostsOfApp)
   return (
-    <div>
-    {    posts.Posts && posts.Posts.length>0?posts.Posts.map((post) => (
-       
-          <Post 
-          key={post._id} 
-          image={post.image} 
-          caption={post.caption} 
-          id={post._id} 
+    <>
+    {
+      loading?<Loading/>:
+      <div>
+      {allPosts&& allPosts.data&&allPosts.data.length> 0 ? allPosts.data.map((post) => (
+
+        <Post
+          key={post._id}
+          image={post.image}
+          caption={post.caption}
+          id={post._id}
           liked={post.likes}
           unliked={post.disLikes}
-          />
-    
-        )):<h1>create some posts</h1>
-      }  
-      
+        />
+
+      )) :
+        <div className="createSomePost">
+          <h1>Create Some Posts</h1>
+        </div>
+
+      }
+
     </div>
+    }
+    </>
+    
   );
 };
 
 export default Feed;
 
-{
-}
+
