@@ -1,0 +1,108 @@
+.createPost{
+    background-color: rgb(233, 224, 213);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;    
+}
+
+.createPostBox{
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(126, 88, 88, 0.1);
+  background-color: #fff;
+  max-width: 400px;
+  width: 100%;
+
+}
+
+.createPostImage{
+  height: 200px;
+  width: 200px;
+  border: 1px solid rgb(118, 131, 141);;
+  border-radius: 10px;
+  margin: 20px;
+  position: relative;
+  left: 75px;
+  overflow:hidden
+}
+
+.createPostImage img{
+  height: 200px;
+  width: 200px;
+  
+}
+
+
+.createPostImageUpload{
+   display: flex;
+   justify-content: center;
+}
+
+
+ 
+/* Css fot the input file button */
+.custom-file-input {
+    display: inline-block;
+    position: relative;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
+  
+  .custom-file-input input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .custom-file-input:hover {
+    background-color: #e0e0e0;
+    border-color: #adadad;
+  }
+
+
+
+  /* Css for the other inputs */
+
+  .createPostOtherInputs{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .createPostOtherInputs input{
+    margin: 20px;
+    padding: 0px 5px;
+    height: 30px;
+    width: 300px
+  }
+
+  .createPostOtherInputs textarea{
+    padding: 5px 10px;
+    height: 100px;
+    width: 300px
+  }
+
+  .createPostOtherInputs button{
+    font-size: large;
+    background-color: cornflowerblue;
+    color: black;
+    margin: 10px;
+    padding: 0px 10px;
+    transition: ease-out .1s;
+  }
+
+  .createPostOtherInputs button:hover{
+    background-color: rgb(46, 94, 181);
+    padding: 0px 15px;
+  }
+  

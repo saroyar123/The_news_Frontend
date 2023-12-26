@@ -32,11 +32,15 @@ export const getUserData = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 console.log("user data call")
-    const {data}=await axios.get(`/api/v1/getUser/${token}`);
+    const {data}=await axios.get(`/api/v1/getUser`,{
+      headers:{
+        "autharization":`Bearer ${token}`
+      }
+    });
     console.log(data)
     dispatch({
       type:"getDataSuccess",
-      playload:data.data
+      playload:data
     });
   } catch (error) {
     dispatch({
@@ -53,9 +57,14 @@ export const UserAuth = (token) => async (dispatch) => {
       type:"UserAuthRequest"
     })
 // https://thenews-backend.onrender.com
-console.log("user data call")
-    const {data}=await axios.get(`/api/v1/getUser/${token}`);
-    console.log(data)
+// console.log("user data call")
+// console.log(token)
+    const {data}=(await axios.get(`/api/v1/getUser`,{
+      headers:{
+        "autharization":`Bearer ${token}`
+      }
+    }));
+    // console.log(data)
     dispatch({
       type:"UserAuthSuccess",
       playload:data
@@ -71,26 +80,26 @@ console.log("user data call")
 
 // action for loagout user
 
-export const logOutUser = (token) => async (dispatch) => {
-  try {
-    dispatch({
-      type:"logOutRequest"
-    })
-// https://thenews-backend.onrender.com
-console.log("logout user data call")
-    const {data}=await axios.get(`/api/v1/logout/${token}`);
-    console.log(data)
-    dispatch({
-      type:"logOutSuccess",
-      playload:data
-    });
-  } catch (error) {
-    dispatch({
-      type: "logOutFailure",
-      playload: error.response.data,
-    });
-  }
-};
+// export const logOutUser = (token) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type:"logOutRequest"
+//     })
+// // https://thenews-backend.onrender.com
+// console.log("logout user data call")
+//     const {data}=await axios.get(`/api/v1/logout/${token}`);
+//     console.log(data)
+//     dispatch({
+//       type:"logOutSuccess",
+//       playload:data
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: "logOutFailure",
+//       playload: error.response.data,
+//     });
+//   }
+// };
 
 
 

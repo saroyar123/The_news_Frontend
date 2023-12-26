@@ -1,14 +1,18 @@
 import axios from 'axios'
 
 // create post action 
-export const createPost = (token,caption,image,location) => async (dispatch) => {
+export const createPost = (token,caption,image,description,location) => async (dispatch) => {
     try {
       dispatch({
         type:"CreatePostRequest"
       })
   // https://thenews-backend.onrender.com
-  console.log("user data call")
-      const {data}=await axios.post(`/api/post/${token}`,{caption,image,location});
+  console.log("create post call  ")
+      const {data}=await axios.post("/api/v1/post",{caption,image,description,location},{
+        headers:{
+          "autharization":`Bearer ${token}`
+        }
+      });
       console.log(data)
       dispatch({
         type:"CreatePostSuccess",

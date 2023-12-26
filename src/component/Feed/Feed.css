@@ -7,3 +7,9 @@
 .createSomePost h1{
     font-size: 300;
 }
+
+.feed{
+    display: flex;
+    justify-content: center;
+    
+}

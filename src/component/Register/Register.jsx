@@ -49,7 +49,7 @@ function Register() {
     };
     console.log("register")
  // https://thenews-backend.onrender.com
-    const { data } = await axios.post("/api/register", {
+    const { data } = await axios.post("/api/v1/register", {
       name,
       email,
       password,

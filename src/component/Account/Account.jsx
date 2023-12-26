@@ -1,54 +1,57 @@
 import { Avatar, Button } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logOutUser } from '../../Action/userAction';
-import {redirect} from 'react-router-dom'
+import Loading from "../Loading/Loading"
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { UserAuth, getUserData } from '../../Action/userAction'
+
 
 const Account = () => {
-  
-  const {loading,userData}=useSelector((state)=>state.UserData)
-  console.log(loading,userData)
+  const navigate=useNavigate();
   const dispatch=useDispatch();
+  const { loading, userData } = useSelector((state) => state.UserData)
+  const token = localStorage.getItem("token");
+  const logOutHandler =async () => {
+     const {data}=await axios.get("/api/v1/logout",{
+      headers:{
+        "autharization":`Bearer ${token}`
+      }
+     })
 
-  // logout action start here
-
-  const [logOutSuccess,setLogOutSuccess]=useState(false)
-  const token=localStorage.getItem("token");
-  const logOutHandler=()=>{
-   dispatch(logOutUser(token));
-   
-   
+     if(userData.data._id===data.data.id)
+     {
+      localStorage.removeItem("token");
+      
+      dispatch(UserAuth(null))
+      dispatch(getUserData(null))
+      navigate("/");
+      
+     }
   }
-  
-  const {data}=useSelector((state)=>state.UserActions)
-  useEffect(()=>{
-   if(data!=null)
-   {
-     setLogOutSuccess(data.success);
-   }
-   if(logOutSuccess)
-   {
-    localStorage.removeItem("token");
-    window.location.replace("http://localhost:3000/")
-  }
-
-  },[setLogOutSuccess,data,logOutSuccess])
-
-
-
 
   return (
-    <div>
-    {
-      userData &&userData.length>0 ?(
-       <>
-        <h1>{userData[0].name}</h1>
-        <Avatar src={userData[0].image.url} alt="user image"/>
-        <Button onClick={logOutHandler}>LogOut</Button>
-       </>
-      ):<h1>something is wrong</h1>
-    }
-    </div>
+    <>
+        {
+          loading?
+          <Loading/>
+          :
+          <div>
+          {
+            userData.success?(
+             <>
+              <h1>{userData.data.name}</h1>
+              <Avatar src={userData.data.image.url} alt="user image"/>
+              <Button onClick={logOutHandler}>LogOut</Button>
+             </>
+            ):<h1>something is wrong</h1>
+          }
+          </div>
+
+}
+    </>
+
+
   )
 }
 

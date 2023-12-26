@@ -24,14 +24,17 @@ export const UserAuth=createReducer({
 
 
 export const GetData=createReducer({
-    loading:false,
-    userData:[]
+    loading:true,
+    userData:{
+        success:false,
+        message:"",
+        data:null
+    }
 
 },{
 
     getDataRequest:(state)=>{
         state.loading=true
-        state.userData=null
     },
 
     getDataSuccess:(state,action)=>{

@@ -1,16 +1,18 @@
-import { Avatar, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import {getUserData } from '../../Action/userAction';
-import {createPost, getAllPosts} from '../../Action/PostsAction'
+import { getUserData } from '../../Action/userAction';
+import { createPost, getAllPosts } from '../../Action/PostsAction'
+import "./CreatePost.css"
 
 function CreatePost() {
-  const [caption,setCaption]=useState("");
-  const [image,setImage]=useState("");
+  const [caption, setCaption] = useState("");
+  const [image, setImage] = useState("");
   const [nameLocation, setNameLocatin] = useState("");
+  const [description, setDescription] = useState("Give the description about the event.......")
   const [logititude, setLogititude] = useState(null);
   const [latitude, setLatitude] = useState(null);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
 
 
@@ -34,33 +36,50 @@ function CreatePost() {
       setLatitude(position.coords.latitude);
       setLogititude(position.coords.longitude);
     })
-      const location = {
-        name: nameLocation,
-        coordinates: {
-          latitude,
-          logititude
-        }
+    const location = {
+      name: nameLocation,
+      coordinates: {
+        latitude,
+        logititude
       }
-      const token=localStorage.getItem("token");
-      console.log(token)
-      await dispatch(createPost(token,caption,image,location));
-      dispatch(getUserData(token));
-      dispatch(getAllPosts());
-}
+    }
+    const token = localStorage.getItem("token");
+    console.log(token)
+    await dispatch(createPost(token, caption, image, description, location));
+    dispatch(getUserData(token));
+    dispatch(getAllPosts());
+  }
   return (
     <>
-        <Avatar
-                    src={image}
-                    alt="User"
-                    sx={{ height: "10vmax", width: "10vmax" }}
-         />
-     <form onSubmit={submitHandler} >
-        <input type='text' placeholder='caption' value={caption} onChange={(e) => setCaption(e.target.value)} />
-        <input type='text' placeholder='name of your location' value={nameLocation} onChange={(e) => setNameLocatin(e.target.value)} />
-        <input type='file' accept='image/*' onChange={handleImageChange} />
-        <Button type='submit' >submit</Button>
+      <div className='createPost'>
+        <div className='createPostBox'>
+          <div className='createPostImage'>
+            <img src={image} alt='News' />
+          </div>
 
-      </form>
+
+          <form onSubmit={submitHandler} className='createPostForm' >
+            <div className='createPostImageUpload'>
+              <label htmlFor="fileInput" className="custom-file-input">
+                Choose a file
+                <input type="file" id="fileInput" accept="image/*" onChange={handleImageChange} />
+              </label>
+
+            </div>
+            <div className='createPostOtherInputs'>
+              <input type='text' placeholder='Headline for you event' value={caption} onChange={(e) => setCaption(e.target.value)} />
+              <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+              <input type='text' placeholder='name of your location' value={nameLocation} onChange={(e) => setNameLocatin(e.target.value)} />
+
+              <Button type='submit'>submit</Button>
+            </div>
+
+
+
+          </form>
+        </div>
+
+      </div>
     </>
   )
 }

@@ -26,11 +26,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Header/>}>
         <Route index element={<Feed/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/login/register" element={<Register/>}/>
         <Route path="/account" element={<Account/>}/>
         <Route path="/createPost" element={<CreatePost/>}/>
         </Route>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
     </BrowserRouter>
   );

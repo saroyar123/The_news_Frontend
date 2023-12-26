@@ -32,7 +32,7 @@ export const AllPosts=createReducer({
     allPosts:{
         success:false,
         message:"",
-        Posts:[]
+        data:null
     }
 },{
 
