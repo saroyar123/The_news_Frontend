@@ -58,7 +58,14 @@ export const getAllPosts = () => async (dispatch) => {
         type:"likePostRequest"
       })
 
-      const {data}=await axios.get(`/api/like/${token}/${id}/${lu}`)
+      const {data}=await axios.get(`/api/v1/like/${id}/${lu}`,
+      {
+        headers:{
+          "autharization":`Bearer ${token}`
+        }
+      }
+      )
+      
       dispatch({
         type:"likePostSuccess",
         playload:data
@@ -79,7 +86,13 @@ export const getAllPosts = () => async (dispatch) => {
         type:"unLikePostRequest"
       })
 
-      const {data}=await axios.get(`/api/like/${token}/${id}/${lu}`)
+      const {data}=await axios.get(`/api/v1/like/${id}/${lu}`,
+      {
+        headers:{
+          "autharization":`Bearer ${token}`
+        }
+      }
+      )
       dispatch({
         type:"unLikePostSuccess",
         playload:data
