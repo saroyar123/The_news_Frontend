@@ -1,0 +1,57 @@
+/* Register.css */
+
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .upLoadImage {
+    margin-bottom: 20px;
+  }
+  
+  .upLoadImage Avatar {
+    height: 10vmax;
+    width: 10vmax;
+  }
+  
+  .registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .formInputs input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .formInputs input[type='file'] {
+    margin-bottom: 20px;
+  }
+  
+  .registerForm Button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3a91ee;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .registerForm Button:hover{
+    background-color: #0055b1;
+  }
+  
