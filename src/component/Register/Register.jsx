@@ -4,6 +4,8 @@ import { Avatar, Button } from '@mui/material'
 import { getUserData } from '../../Action/userAction';
 import { useDispatch } from 'react-redux'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import "./Register.css"
 
 function Register() {
 
@@ -13,23 +15,23 @@ function Register() {
   const [nameLocation, setNameLocatin] = useState("");
   const [logititude, setLogititude] = useState(null);
   const [latitude, setLatitude] = useState(null);
-  const [image,setImage]=useState("")
+  const [image, setImage] = useState("")
   const dispatch = useDispatch();
 
 
-  const imageSubmithandler=(e)=>{
+  const imageSubmithandler = (e) => {
     const file = e.target.files[0];
 
-  const Reader = new FileReader();
-  Reader.readAsDataURL(file);
+    const Reader = new FileReader();
+    Reader.readAsDataURL(file);
 
-  Reader.onload = () => {
-    if (Reader.readyState === 2) {
-      setImage(Reader.result);
-      // console.log(image);
-    }
-  };
-  
+    Reader.onload = () => {
+      if (Reader.readyState === 2) {
+        setImage(Reader.result);
+        // console.log(image);
+      }
+    };
+
   }
 
 
@@ -48,7 +50,7 @@ function Register() {
       }
     };
     console.log("register")
- // https://thenews-backend.onrender.com
+    // https://thenews-backend.onrender.com
     const { data } = await axios.post("https://thenews-backend.onrender.com/api/v1/register", {
       name,
       email,
@@ -65,21 +67,29 @@ function Register() {
 
 
   return (
-    <div>
-       <Avatar
-                    src={image}
-                    alt="User"
-                    sx={{ height: "10vmax", width: "10vmax" }}
-         />
-      <form onSubmit={submitHandler} >
-        <input type='text' placeholder='name' value={name} onChange={(e) => setName(e.target.value)} />
-        <input type='email' placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type='password' placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-        <input type='text' placeholder='name of your location' value={nameLocation} onChange={(e) => setNameLocatin(e.target.value)} />
-        <input type='file' accept='image/*' onChange={imageSubmithandler} />
+    <div className='register'>
+      <div className="upLoadImage">
+        <Avatar
+          src={image}
+          alt="User"
+          sx={{ height: "10vmax", width: "10vmax" }}
+        />
+      </div>
+
+
+      <form className="registerForm" onSubmit={submitHandler} >
+        <div className="formInputs">
+          <input type='text' placeholder='name' value={name} onChange={(e) => setName(e.target.value)} />
+          <input type='email' placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type='password' placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type='text' placeholder='name of your location' value={nameLocation} onChange={(e) => setNameLocatin(e.target.value)} />
+          <input type='file' accept='image/*' onChange={imageSubmithandler} />
+        </div>
+
         <Button type='submit' >submit</Button>
 
       </form>
+      <Link className='Hlink' to={"/login"}>Login</Link>
     </div>
   )
 }
