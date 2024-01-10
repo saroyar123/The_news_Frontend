@@ -1,24 +1,30 @@
 import axios from 'axios'
+import Cookies from 'js-cookie';
+
+const token=Cookies.get("token")
 
 // create post action 
-export const createPost = (token,caption,image,description,location) => async (dispatch) => {
+export const createPost = (caption,image,description,location) => async (dispatch) => {
     try {
       dispatch({
         type:"CreatePostRequest"
       })
   // https://thenews-backend.onrender.com
+  // console.log(Cookies.get())
+  console.log(token)
   console.log("create post call  ")
-      const {data}=await axios.post("/api/v1/post",{caption,image,description,location},{
+      const {data}=await axios.post("https://thenews-backend.onrender.com/api/v1/post",{caption,image,description,location},{
         headers:{
           "autharization":`Bearer ${token}`
         }
-      });
+      }); 
       console.log(data)
       dispatch({
         type:"CreatePostSuccess",
         playload:data
       });
     } catch (error) {
+      console.log(error.response.data)
       dispatch({
         type: "CreatePostFailure",
         playload: error.response.data,
@@ -34,7 +40,7 @@ export const getAllPosts = () => async (dispatch) => {
         type:"allPostsRequest"
       })
   // https://thenews-backend.onrender.com
-      const {data}=await axios.get(`/api/v1/getAllPosts`);
+      const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/getAllPosts`);
 
 
       dispatch({
@@ -52,13 +58,13 @@ export const getAllPosts = () => async (dispatch) => {
 
   // action on the post for like 
 
-  export const likeAction=(token,id,lu)=>async(dispatch)=>{
+  export const likeAction=(id,lu)=>async(dispatch)=>{
     try {
       dispatch({
         type:"likePostRequest"
       })
 
-      const {data}=await axios.get(`/api/v1/like/${id}/${lu}`,
+      const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/like/${id}/${lu}`,
       {
         headers:{
           "autharization":`Bearer ${token}`
@@ -80,13 +86,13 @@ export const getAllPosts = () => async (dispatch) => {
 
 
   // action for unliked post
-  export const unLikeAction=(token,id,lu)=>async(dispatch)=>{
+  export const unLikeAction=(id,lu)=>async(dispatch)=>{
     try {
       dispatch({
         type:"unLikePostRequest"
       })
 
-      const {data}=await axios.get(`/api/v1/like/${id}/${lu}`,
+      const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/like/${id}/${lu}`,
       {
         headers:{
           "autharization":`Bearer ${token}`
@@ -108,14 +114,20 @@ export const getAllPosts = () => async (dispatch) => {
 
   // comment on the post
 
-  export const commentAction=(comment,token,id)=>async(dispatch)=>{
+  export const commentAction=(comment,id)=>async(dispatch)=>{
     try {
       dispatch({
         type:"commentRequest"
       })
       console.log(token,comment,id)
       
-      const {data}=await axios.post(`/api/comment/${token}/${id}`,{comment});
+      const {data}=await axios.post(`https://thenews-backend.onrender.com/api/v1/comment/${id}`,{comment},
+      {
+        headers:{
+          "autharization":`Bearer ${token}`
+        }
+      }
+      );
       console.log(data)
      
       dispatch({

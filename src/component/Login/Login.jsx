@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth, getUserData } from '../../Action/userAction';
-
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [email,setEmail]=useState("");
@@ -14,9 +14,9 @@ const Login = () => {
   const submitHandler=async(e)=>{
     e.preventDefault();
     // https://thenews-backend.onrender.com
-    const {data}=await axios.post("/api/v1/login",{email,password});
-    localStorage.setItem("token",data.data.token);
-    // console.log(data.data.token)
+    const {data}=await axios.post("https://thenews-backend.onrender.com/api/v1/login",{email,password});
+    Cookies.set("token",data.data.token,{expires:7})
+    console.log(data.data.token)
     await dispatch(UserAuth(data.data.token))
     await dispatch(getUserData(data.data.token));
     navigate("/")

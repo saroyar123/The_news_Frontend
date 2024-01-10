@@ -6,7 +6,7 @@ export const userRegister = (name, email, password,location) => async (dispatch)
       type: "registerRequest",
     });
 
-    const { data } = await axios.post("/api/v1/register", {
+    const { data } = await axios.post("https://thenews-backend.onrender.com/api/v1/register", {
       name,
       email,
       password,
@@ -32,7 +32,8 @@ export const getUserData = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 console.log("user data call")
-    const {data}=await axios.get(`/api/v1/getUser`,{
+console.log(token)
+    const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/getUser`,{
       headers:{
         "autharization":`Bearer ${token}`
       }
@@ -58,8 +59,8 @@ export const UserAuth = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 // console.log("user data call")
-// console.log(token)
-    const {data}=(await axios.get(`/api/v1/getUser`,{
+console.log(token)
+    const {data}=(await axios.get(`https://thenews-backend.onrender.com/api/v1/getUser`,{
       headers:{
         "autharization":`Bearer ${token}`
       }

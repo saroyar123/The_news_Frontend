@@ -45,8 +45,8 @@ function CreatePost() {
     }
     const token = localStorage.getItem("token");
     console.log(token)
-    await dispatch(createPost(token, caption, image, description, location));
-    dispatch(getUserData(token));
+    await dispatch(createPost(caption, image, description, location));
+    dispatch(getUserData());
     dispatch(getAllPosts());
   }
   return (

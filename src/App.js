@@ -10,17 +10,18 @@ import { useEffect } from "react";
 import { getUserData, UserAuth } from "./Action/userAction";
 import { getAllPosts } from "./Action/PostsAction";
 import Feed from "./component/Feed/Feed";
+import Cookies from "js-cookie";
 
 
 function App() {
   const dispatch=useDispatch();
   useEffect(()=>{
-    const token=localStorage.getItem("token");
+    const token=Cookies.get("token")
     dispatch(getAllPosts());
     dispatch(UserAuth(token));
     dispatch(getUserData(token));
 
-  })
+  },[])
   return (
     <BrowserRouter>
       <Routes>

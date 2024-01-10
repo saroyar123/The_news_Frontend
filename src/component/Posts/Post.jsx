@@ -12,19 +12,22 @@ import {
   likeAction,
   unLikeAction,
 } from "../../Action/PostsAction";
+import Cookies from "js-cookie";
 
-function Post({ image, caption, id, liked, unliked, userInfo, description }) {
+const token=Cookies.get("token")
+
+function Post({ image, caption, id, liked, unliked, userInfo, description, comments }) {
 
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
 
   // start comment handler
   const [comment, setComment] = useState("");
   const commentSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(token, comment, id);
-    await dispatch(commentAction(comment, token, id));
-    dispatch(getAllPosts());
+    console.log( comment, id);
+    await dispatch(commentAction(comment, id));
+    setComment("")
+    dispatch(getAllPosts())
   };
   // ending of comment
 
@@ -39,20 +42,20 @@ function Post({ image, caption, id, liked, unliked, userInfo, description }) {
   const likeHandler = (e) => {
     e.preventDefault();
     let lu = 1;
-    dispatch(likeAction(token, id, lu));
+    dispatch(likeAction( id, lu));
     if (likePost) {
       setlikePost(false);
-      setNoOfLikePost(noOfLikePost-1);
+      setNoOfLikePost(noOfLikePost - 1);
 
     }
     else {
       setlikePost(true);
-      setNoOfLikePost(noOfLikePost+1);
+      setNoOfLikePost(noOfLikePost + 1);
     }
 
     if (unlikedPost) {
       setUnlikedPost(false);
-      setNoOfDislikePost(noOfDislikePost-1);
+      setNoOfDislikePost(noOfDislikePost - 1);
     }
 
 
@@ -64,14 +67,13 @@ function Post({ image, caption, id, liked, unliked, userInfo, description }) {
       if (!loading && userData.data) {
         liked.forEach((element) => {
           if (element.toString() === userData.data._id.toString()) {
-            console.log("like posts")
             setlikePost(true);
           }
         });
       }
     }
     // console.log(likePost)
-  }, [liked, loading, token,userData.data])
+  }, [liked, loading, userData.data])
 
   // like handler end here
 
@@ -83,34 +85,34 @@ function Post({ image, caption, id, liked, unliked, userInfo, description }) {
       if (!loading && userData.data) {
         unliked.forEach((element) => {
           if (element.toString() === userData.data._id.toString()) {
-            console.log("unlike posts")
             setUnlikedPost(true);
           }
         });
       }
     }
-  }, [loading, token, unliked, userData.data])
+  }, [loading, unliked, userData.data])
 
   const unLikeHandler = async (e) => {
     e.preventDefault();
     let lu = 2;
-    dispatch(unLikeAction(token, id, lu));
+    dispatch(unLikeAction( id, lu));
     // dispatch(getAllPosts());
 
     if (unlikedPost) {
       setUnlikedPost(false);
-      setNoOfDislikePost(noOfDislikePost-1);
+      setNoOfDislikePost(noOfDislikePost - 1);
     }
     else {
       setUnlikedPost(true);
-      setNoOfDislikePost(noOfDislikePost+1);
+      setNoOfDislikePost(noOfDislikePost + 1);
     }
 
     if (likePost) {
       setlikePost(false);
-      setNoOfLikePost(noOfLikePost-1);
+      setNoOfLikePost(noOfLikePost - 1);
     }
   };
+  console.log(comments)
 
   // unlike handler end here
 
@@ -145,10 +147,10 @@ function Post({ image, caption, id, liked, unliked, userInfo, description }) {
 
             {
               likePost ?
-              (<ThumbUpIcon fontSize="small" style={{ color: "black" }} />)
-              :
-              (<ThumbUpOffAltIcon fontSize="small" style={{ color: "black" }} />)
-                
+                (<ThumbUpIcon fontSize="small" style={{ color: "black" }} />)
+                :
+                (<ThumbUpOffAltIcon fontSize="small" style={{ color: "black" }} />)
+
             }
           </Button>
           <h4>{noOfLikePost}</h4>
@@ -177,6 +179,25 @@ function Post({ image, caption, id, liked, unliked, userInfo, description }) {
           ></input>
           <Button disabled={token === null} type="submit">comment</Button>
         </form>
+      </div>
+      <div className="comment_Box">
+        <h3>Comments</h3>
+        {
+          comments.map((comment) => (
+            <div className="comment_Details">
+              <div className="comment_by_Users">
+                <img src={comment.commented_user.image.url} alt="Commented_User"></img>
+                <h3>{comment.commented_user.name}</h3>
+              </div>
+              <div >
+                <h4>{comment.comment}</h4>
+              </div>
+
+
+            </div>
+
+          ))
+        }
       </div>
 
 

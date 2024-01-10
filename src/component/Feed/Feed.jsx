@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "../Posts/Post";
 import "./Feed.css"
 import Loading from "../Loading/Loading";
 
 const Feed = () => {
-  const { loading, allPosts } = useSelector((state) => state.AllPostsOfApp)
+  const { loading,call, allPosts } = useSelector((state) => state.AllPostsOfApp)
+  const [allPost,setAllPost]=useState(null)
+  useEffect(()=>{
+    setAllPost(allPosts);
+  },[call])
+  console.log(call)
   return (
     <>
       <div className="feed">
         {
-          loading ? <Loading /> :
+          loading&&call===0 ? <Loading /> :
             <div>
-              {allPosts && allPosts.data && allPosts.data.length > 0 ? allPosts.data.map((post) => (
+              {call!==0&&allPost && allPost.data && allPost.data.length > 0 ? allPost.data.map((post) => (
 
                 <Post
                   key={post._id}
@@ -23,6 +28,7 @@ const Feed = () => {
                   unliked={post.disLikes}
                   userInfo={post.owner}
                   description={post.description}
+                  comments={post.comments}
 
                 />
 

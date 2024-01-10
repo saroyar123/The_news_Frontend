@@ -28,7 +28,8 @@ export const PostActions=createReducer({
 // get all the post from the database
 
 export const AllPosts=createReducer({
-    loading:false,
+    loading:true,
+    call:0,
     allPosts:{
         success:false,
         message:"",
@@ -43,6 +44,7 @@ export const AllPosts=createReducer({
 
     allPostsSuccess:(state,action)=>{
         state.loading=false
+        state.call+=1
         state.allPosts=action.playload
     },
 

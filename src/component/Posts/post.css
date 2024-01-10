@@ -61,9 +61,50 @@
     color: #fff;
     border: none;
   }
+
+  .comment button:hover {
+    background-color: #004c9d;
+  }
   
   .comment button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
   }
+
+  .comment_Box{
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  .comment_Details{
+    border-bottom: 1px solid #605c5c;
+    border-right: 1px solid #ddd;
+    margin: 10px;
+  }
+
+  .comment_by_Users{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding-bottom: 10px;
+    border-bottom:1px rgb(196, 189, 189) solid ;
+  }
+
+  .comment_by_Users img{
+    height: 40px;
+    width: 40px;
+    border: 1px rgb(196, 189, 189) solid;
+    border-radius: 50%;
+    padding: 1px;
+  }
+
+  .comment_by_Users h3{
+    margin: 10px;
+  }
+
+  .comment_Details h4{
+     margin: 0px 20px;
+     margin-bottom: 5px;
+  }
+
   
