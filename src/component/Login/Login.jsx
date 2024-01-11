@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth, getUserData } from '../../Action/userAction';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css"
 
 const Login = () => {
@@ -15,19 +17,36 @@ const Login = () => {
 
   const {loading:getUserDataLoading}=useSelector((state)=>state.UserData)
 
-  const submitHandler=async(e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
-    // https://thenews-backend.onrender.com
-    setLoginAction(true)
-    const {data}=await axios.post("https://thenews-backend.onrender.com/api/v1/login",{email,password});
-    Cookies.set("token",data.data.token,{expires:7})
-    console.log(data.data.token)
-    await dispatch(UserAuth(data.data.token))
-    await dispatch(getUserData(data.data.token));
-    navigate("/")
-    setLoginAction(false)
-    
-  }
+    setLoginAction(true);
+  
+    try {
+      const { data } = await axios.post("https://thenews-backend.onrender.com/api/v1/login", { email, password });
+      console.log(data);
+      if (data.success) {
+        Cookies.set("token", data.data.token, { expires: 7 });
+        toast.success(data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        await dispatch(UserAuth(data.data.token));
+        await dispatch(getUserData(data.data.token));
+        navigate("/");
+      } else {
+        toast.error("Something is wrong", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } finally {
+      setLoginAction(false);
+    }
+  };
+  
 
   return (
     <>
@@ -44,7 +63,7 @@ const Login = () => {
       <Link className='link' to={'/register'}>Register</Link>
       <Link className='link' to={'/'}>Home</Link>
       </div>
-      
+      <ToastContainer/>
     </div>
     </>
   )
