@@ -1,19 +1,18 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+
 import { Link, Outlet } from 'react-router-dom'
 import './Header.css'
+import Cookies from 'js-cookie'
 
-function Header() {
-  const { Auth } = useSelector((state) => state.UserAuth);
+function Header({auth}) {
   return (
-    <>
+    <div>
       {
         // loading ? <Loading /> : (
           <>
             <div className="Navber_Body">
               <Link className='Hlink' to={'/'}>Feed</Link>
               {
-                Auth.success === false ? 
+                auth=== false ||Cookies.get("token")===undefined? 
                 (<Link className='Hlink' to={'login'}>Login</Link>) : (
                   <>
                     <Link className='Hlink' to={'account'}>Account</Link>
@@ -30,7 +29,7 @@ function Header() {
           </>
         // )
       }
-    </>
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const token=Cookies.get("token")
 
@@ -10,21 +11,30 @@ export const createPost = (caption,image,description,location) => async (dispatc
         type:"CreatePostRequest"
       })
   // https://thenews-backend.onrender.com
-  // console.log(Cookies.get())
-  console.log(token)
+
   console.log("create post call  ")
       const {data}=await axios.post("https://thenews-backend.onrender.com/api/v1/post",{caption,image,description,location},{
         headers:{
-          "autharization":`Bearer ${token}`
-        }
+          "Authorization":`Bearer ${token}`
+         }
       }); 
-      console.log(data)
+
+      // alert
+      toast.success("Post created", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+
+
       dispatch({
         type:"CreatePostSuccess",
         playload:data
       });
     } catch (error) {
       console.log(error.response.data)
+
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch({
         type: "CreatePostFailure",
         playload: error.response.data,
@@ -67,7 +77,8 @@ export const getAllPosts = () => async (dispatch) => {
       const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/like/${id}/${lu}`,
       {
         headers:{
-          "autharization":`Bearer ${token}`
+          "Authorization":`Bearer ${token}`
+          
         }
       }
       )
@@ -95,7 +106,8 @@ export const getAllPosts = () => async (dispatch) => {
       const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/like/${id}/${lu}`,
       {
         headers:{
-          "autharization":`Bearer ${token}`
+          "Authorization":`Bearer ${token}`
+          
         }
       }
       )
@@ -124,7 +136,8 @@ export const getAllPosts = () => async (dispatch) => {
       const {data}=await axios.post(`https://thenews-backend.onrender.com/api/v1/comment/${id}`,{comment},
       {
         headers:{
-          "autharization":`Bearer ${token}`
+          "Authorization":`Bearer ${token}`
+          
         }
       }
       );

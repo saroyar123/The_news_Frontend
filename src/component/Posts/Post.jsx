@@ -112,7 +112,7 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
       setNoOfLikePost(noOfLikePost - 1);
     }
   };
-  console.log(comments)
+  // console.log(comments)
 
   // unlike handler end here
 
@@ -134,8 +134,8 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
       <div className="postImage">
         <img src={image.url} alt="postImage" />
       </div>
-      <div>
-        <h2>{description}</h2>
+      <div className="post_description">
+        <h4>{description}</h4>
       </div>
 
 

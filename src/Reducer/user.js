@@ -2,22 +2,23 @@ import {createReducer} from "@reduxjs/toolkit"
 
 export const UserAuth=createReducer({
     loading:false,
-    Auth:false
+    data:null,
+    auth:false
 },{
 
     UserAuthRequest:(state)=>{
         state.loading=true
-        state.Auth=false
     },
 
     UserAuthSuccess:(state,action)=>{
         state.loading=false
-        state.Auth=action.playload
+        state.data=action.payload
+        state.auth=true
     },
 
     UserAuthFailure:(state,action)=>{
         state.loading=false
-        state.isAuthentication=false
+        state.data=action.payload
     },
 
 });

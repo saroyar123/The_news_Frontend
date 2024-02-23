@@ -35,7 +35,8 @@ console.log("user data call")
 console.log(token)
     const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/getUser`,{
       headers:{
-        "autharization":`Bearer ${token}`
+        "Authorization":`Bearer ${token}`
+        
       }
     });
     console.log(data)
@@ -59,21 +60,23 @@ export const UserAuth = (token) => async (dispatch) => {
     })
 // https://thenews-backend.onrender.com
 // console.log("user data call")
-console.log(token)
-    const {data}=(await axios.get(`https://thenews-backend.onrender.com/api/v1/getUser`,{
+// console.log(token,"action")
+    const {data}=await axios.get(`https://thenews-backend.onrender.com/api/v1/getUser`,{
       headers:{
-        "autharization":`Bearer ${token}`
+        "Authorization":`Bearer ${token}`
+        
       }
-    }));
-    // console.log(data)
+    });
+    console.log(data)
+
     dispatch({
       type:"UserAuthSuccess",
-      playload:data
+      payload:data
     });
   } catch (error) {
     dispatch({
       type: "UserAuthFailure",
-      playload: error.response.data,
+      payload: error.response.data,
     });
   }
 };
