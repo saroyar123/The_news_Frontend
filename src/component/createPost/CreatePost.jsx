@@ -1,9 +1,10 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { getUserData } from '../../Action/userAction';
+import { UserAuth} from '../../Action/userAction';
 import { createPost, getAllPosts } from '../../Action/PostsAction'
 import "./CreatePost.css"
+import Cookies from 'js-cookie';
 
 function CreatePost() {
   const [caption, setCaption] = useState("");
@@ -43,11 +44,17 @@ function CreatePost() {
         logititude
       }
     }
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token");
     console.log(token)
     await dispatch(createPost(caption, image, description, location));
-    dispatch(getUserData());
+    dispatch(UserAuth(token));
     dispatch(getAllPosts());
+    setCaption("")
+    setDescription("")
+    setImage("")
+    setNameLocatin("")
+
+
   }
   return (
     <>
@@ -56,7 +63,6 @@ function CreatePost() {
           <div className='createPostImage'>
             <img src={image} alt='News' />
           </div>
-
 
           <form onSubmit={submitHandler} className='createPostForm' >
             <div className='createPostImageUpload'>
@@ -73,8 +79,6 @@ function CreatePost() {
 
               <Button type='submit'>submit</Button>
             </div>
-
-
 
           </form>
         </div>

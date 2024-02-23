@@ -10,12 +10,11 @@ import Cookies from 'js-cookie'
 const Account = () => {
   const navigate=useNavigate();
   const dispatch=useDispatch();
-  const { loading, userData } = useSelector((state) => state.UserData)
+  const { loading, data } = useSelector((state) => state.UserAuth)
   const token = localStorage.getItem("token");
   const logOutHandler =async () => {
       Cookies.remove("token");
       await dispatch(UserAuth(null))
-      dispatch(getUserData(null))
       navigate("/");
   }
 
@@ -27,10 +26,10 @@ const Account = () => {
           :
           <div>
           {
-            userData.success?(
+            data.success?(
              <>
-              <h1>{userData.data.name}</h1>
-              <Avatar src={userData.data.image.url} alt="user image"/>
+              <h1>{data.data.name}</h1>
+              <Avatar src={data.data.image.url} alt="user image"/>
               <Button onClick={logOutHandler}>LogOut</Button>
              </>
             ):<h1>something is wrong</h1>
