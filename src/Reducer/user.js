@@ -19,6 +19,7 @@ export const UserAuth=createReducer({
     UserAuthFailure:(state,action)=>{
         state.loading=false
         state.data=action.payload
+        state.auth=false
     },
 
 });

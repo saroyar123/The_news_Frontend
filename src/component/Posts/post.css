@@ -28,6 +28,11 @@
   .postComment {
     margin-bottom: 10px;
   }
+
+  .caption{
+    font-size: large;
+    font-weight:bold;
+  }
   
   .postImage img {
     height: 450px;
@@ -47,6 +52,21 @@
     padding: 8px;
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  .post_description h4{
+    color: #483d3d;
+    font-family:serif;
+    font-size:small;
+    font-weight: 200;
+  }
+
+  .noOfLikes,
+  .noOfUnlikes{
+   display: flex;
+   /* border: 1px solid red; */
+   align-items: center;
+   padding: 5px;
   }
   
   .comment input {
@@ -79,20 +99,21 @@
   .comment_Details{
     border-bottom: 1px solid #605c5c;
     border-right: 1px solid #ddd;
-    margin: 10px;
   }
 
   .comment_by_Users{
     display: flex;
     flex-direction: row;
-    margin: 10px;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
     padding-bottom: 10px;
     border-bottom:1px rgb(196, 189, 189) solid ;
   }
 
   .comment_by_Users img{
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     border: 1px rgb(196, 189, 189) solid;
     border-radius: 50%;
     padding: 1px;
@@ -102,9 +123,5 @@
     margin: 10px;
   }
 
-  .comment_Details h4{
-     margin: 0px 20px;
-     margin-bottom: 5px;
-  }
 
   
