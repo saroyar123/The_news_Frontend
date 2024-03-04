@@ -19,6 +19,8 @@ const token = Cookies.get("token")
 
 function Post({ image, caption, id, liked, unliked, userInfo, description, comments }) {
 
+  console.log(image)
+
   const dispatch = useDispatch();
   const { auth } = useSelector((state) => state.UserAuth)
 
