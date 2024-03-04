@@ -1,0 +1,41 @@
+.account{
+    display: flex;
+}
+
+.userDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 30%;
+    margin-left: 40px;
+    margin-top: 20px;
+    max-height: 100vh;
+    border-right: 5px solid rgb(128, 116, 116);
+    gap: 10px;
+}
+
+.userDetails button{
+  margin-top: 300px;
+  width: 70px;
+  background-color: crimson;
+  border: 1px solid red;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.userImage{
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgb(128, 127, 127);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.userPosts{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

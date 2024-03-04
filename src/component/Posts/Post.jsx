@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Button} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
@@ -13,21 +13,33 @@ import {
   unLikeAction,
 } from "../../Action/PostsAction";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
-const token=Cookies.get("token")
+const token = Cookies.get("token")
 
 function Post({ image, caption, id, liked, unliked, userInfo, description, comments }) {
 
+  console.log(image)
+
   const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state.UserAuth)
 
   // start comment handler
   const [comment, setComment] = useState("");
   const commentSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log( comment, id);
-    await dispatch(commentAction(comment, id));
-    setComment("")
-    dispatch(getAllPosts())
+    console.log(comment, id);
+
+    if (auth) {
+      await dispatch(commentAction(comment, id));
+      setComment("")
+      dispatch(getAllPosts())
+    }
+    else {
+      toast.error("Please Login")
+    }
+
+
   };
   // ending of comment
 
@@ -41,22 +53,30 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
 
   const likeHandler = (e) => {
     e.preventDefault();
-    let lu = 1;
-    dispatch(likeAction( id, lu));
-    if (likePost) {
-      setlikePost(false);
-      setNoOfLikePost(noOfLikePost - 1);
 
+    if (auth) {
+
+      let lu = 1;
+      dispatch(likeAction(id, lu));
+      if (likePost) {
+        setlikePost(false);
+        setNoOfLikePost(noOfLikePost - 1);
+
+      }
+      else {
+        setlikePost(true);
+        setNoOfLikePost(noOfLikePost + 1);
+      }
+
+      if (unlikedPost) {
+        setUnlikedPost(false);
+        setNoOfDislikePost(noOfDislikePost - 1);
+      }
     }
     else {
-      setlikePost(true);
-      setNoOfLikePost(noOfLikePost + 1);
+      toast.error("Please Login")
     }
 
-    if (unlikedPost) {
-      setUnlikedPost(false);
-      setNoOfDislikePost(noOfDislikePost - 1);
-    }
 
 
   };
@@ -94,23 +114,30 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
 
   const unLikeHandler = async (e) => {
     e.preventDefault();
-    let lu = 2;
-    dispatch(unLikeAction( id, lu));
-    // dispatch(getAllPosts());
 
-    if (unlikedPost) {
-      setUnlikedPost(false);
-      setNoOfDislikePost(noOfDislikePost - 1);
+    if(auth)
+    {
+      let lu = 2;
+      dispatch(unLikeAction(id, lu));
+  
+      if (unlikedPost) {
+        setUnlikedPost(false);
+        setNoOfDislikePost(noOfDislikePost - 1);
+      }
+      else {
+        setUnlikedPost(true);
+        setNoOfDislikePost(noOfDislikePost + 1);
+      }
+  
+      if (likePost) {
+        setlikePost(false);
+        setNoOfLikePost(noOfLikePost - 1);
+      }
     }
-    else {
-      setUnlikedPost(true);
-      setNoOfDislikePost(noOfDislikePost + 1);
+    else{
+      toast.error("Please Login")
     }
-
-    if (likePost) {
-      setlikePost(false);
-      setNoOfLikePost(noOfLikePost - 1);
-    }
+   
   };
   // console.log(comments)
 
@@ -126,7 +153,7 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
 
 
       <div className="caption">
-        <Typography>{caption}</Typography>
+        <p>{caption}</p>
       </div>
 
 
@@ -141,7 +168,7 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
 
       <div className="postLikeAndDislike">
 
-        <div>
+        <div className="noOfLikes">
           {/* like */}
           <Button disabled={token === null} onClick={likeHandler}>
 
@@ -156,7 +183,7 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
           <h4>{noOfLikePost}</h4>
         </div>
 
-        <div>
+        <div className="noOfUnlikes">
           {/* unlike */}
           <Button disabled={token === null} onClick={unLikeHandler}>
             {
@@ -187,11 +214,10 @@ function Post({ image, caption, id, liked, unliked, userInfo, description, comme
             <div className="comment_Details">
               <div className="comment_by_Users">
                 <img src={comment.commented_user.image.url} alt="Commented_User"></img>
-                <h3>{comment.commented_user.name}</h3>
-              </div>
-              <div >
                 <h4>{comment.comment}</h4>
               </div>
+                
+  
 
 
             </div>
